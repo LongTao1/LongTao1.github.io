@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>myPage</title>
+    <url>/2019/11/26/myPage/</url>
+    <content><![CDATA[<p>hello</p>
+]]></content>
+      <categories>
+        <category>搭建博客</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>github</tag>
+        <tag>npm</tag>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+</search>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>博客</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://longlongvps.top/"/>
+  <updated>2019-11-26T08:03:00.761Z</updated>
+  <id>http://longlongvps.top/</id>
+  
+  <author>
+    <name>龙涛</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>myPage</title>
+    <link href="http://longlongvps.top/2019/11/26/myPage/"/>
+    <id>http://longlongvps.top/2019/11/26/myPage/</id>
+    <published>2019-11-26T06:55:47.000Z</published>
+    <updated>2019-11-26T08:03:00.761Z</updated>
+    
+    <content type="html"><![CDATA[<p>hello</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;hello&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="搭建博客" scheme="http://longlongvps.top/categories/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+      <category term="hexo" scheme="http://longlongvps.top/tags/hexo/"/>
+    
+      <category term="github" scheme="http://longlongvps.top/tags/github/"/>
+    
+      <category term="npm" scheme="http://longlongvps.top/tags/npm/"/>
+    
+      <category term="基础" scheme="http://longlongvps.top/tags/%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+</feed>
