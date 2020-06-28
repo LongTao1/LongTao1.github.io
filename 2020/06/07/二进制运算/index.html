@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="博客" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://longtao1.github.io').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="常用的数制以及概念    * 计算机底层使用的是二进制.     * 虽然Java在编程中使用的是十进制,但底层使用的仍然是二进制     * 计算机中常用的还有八进制和十六进制. 什么是二进制​    一种以2为基数的计数法,用0和1来表示数据,进位规则是  “逢二进一” ,借位规则是“借一当二”. 在计算机中二进制是一个非常微小的开关,永“开”来表示1, “关”来表示0. “基数”为2,2n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进制运算">
+<meta property="og:url" content="http://longtao1.github.io/2020/06/07/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="常用的数制以及概念    * 计算机底层使用的是二进制.     * 虽然Java在编程中使用的是十进制,但底层使用的仍然是二进制     * 计算机中常用的还有八进制和十六进制. 什么是二进制​    一种以2为基数的计数法,用0和1来表示数据,进位规则是  “逢二进一” ,借位规则是“借一当二”. 在计算机中二进制是一个非常微小的开关,永“开”来表示1, “关”来表示0. “基数”为2,2n">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-07T12:07:42.000Z">
+<meta property="article:modified_time" content="2020-06-28T08:04:57.675Z">
+<meta property="article:author" content="龙龙">
+<meta property="article:tag" content="二进制">
+<meta property="article:tag" content="八进制">
+<meta property="article:tag" content="十进制">
+<meta property="article:tag" content="十六进制">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://longtao1.github.io/2020/06/07/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>进制运算 | 博客</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-153715759-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">1</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://longtao1.github.io/2020/06/07/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/suolong.jpg">
+      <meta itemprop="name" content="龙龙">
+      <meta itemprop="description" content="个人java博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          进制运算
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-07 20:07:42" itemprop="dateCreated datePublished" datetime="2020-06-07T20:07:42+08:00">2020-06-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-28 16:04:57" itemprop="dateModified" datetime="2020-06-28T16:04:57+08:00">2020-06-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%88%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">数制</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="常用的数制以及概念"><a href="#常用的数制以及概念" class="headerlink" title="常用的数制以及概念"></a>常用的数制以及概念</h1><pre><code>    * 计算机底层使用的是二进制.
+    * 虽然Java在编程中使用的是十进制,但底层使用的仍然是二进制
+    * 计算机中常用的还有八进制和十六进制.</code></pre>
+<h2 id="什么是二进制"><a href="#什么是二进制" class="headerlink" title="什么是二进制"></a>什么是二进制</h2><p>​    一种以2为基数的计数法,用<strong>0和1</strong>来表示数据,进位规则是  <strong>“逢二进一”</strong> ,借位规则是<strong>“借一当二”</strong>. 在计算机中二进制是一个非常微小的开关,永<strong>“开”</strong>来表示1, <strong>“关”</strong>来表示0.</p>
+<p><strong>“基数”</strong>为2,2<sup>n</sup> (2的n次幂) 被称作”权”</p>
+<p>1 = 1 * 2<sup>0</sup></p>
+<p>10 = 1 * 2<sup>1</sup></p>
+<p>100 = 1 * 2<sup>2</sup></p>
+<p>1000 = 1 *  2<sup>3</sup></p>
+<p>10000 = 1 * 2<sup>4</sup></p>
+<p>示例: </p>
+<p>(1111)<sub>2</sub> = (?)<sub>10</sub></p>
+<p>(1111)<sub>2</sub> =  1 * 2<sup>3</sup> + 1 * 2<sup>2</sup> + 1 * 2<sup>1</sup> + 1 * 2<sup>0</sup></p>
+<p>​              = 8 + 4 + 2 + 1</p>
+<p>​              = 15</p>
+<a id="more"></a>
+
+<h2 id="什么是八进制"><a href="#什么是八进制" class="headerlink" title="什么是八进制"></a>什么是八进制</h2><p>​        一种以8为基数的计数法,用<strong>0~7</strong>来表示数据,进位规则是  <strong>“逢8进一”</strong> ,借位规则是<strong>“借一当8”</strong>.</p>
+<h2 id="什么是十进制"><a href="#什么是十进制" class="headerlink" title="什么是十进制"></a>什么是十进制</h2><p>​        一种以10为基数的计数法,用<strong>0~9</strong>来表示数据,进位规则是  <strong>“逢十进一”</strong> ,借位规则是<strong>“借一当十”</strong>.</p>
+<p><strong>“基数”</strong>为10,10<sup>n</sup> (10的n次幂) 被称作”权”</p>
+<p>10000 = 1 * 10<sup>4</sup></p>
+<p>1000 = 1 * 10<sup>3</sup></p>
+<p>100 = 1 * 10<sup>2</sup></p>
+<p>10 = 1 * 10<sup>1</sup></p>
+<p>1 = 1 * 10<sup>0</sup></p>
+<p>示例:</p>
+<p>23678(十进制)    =    2 * 10000 + 3 * 1000 + 6 * 100 + 7 * 10 + 8 * 1</p>
+<p>​                             =    2 * 10<sup>4</sup> + 3 * 10<sup>3</sup> + 6 * 10<sup>2</sup> + 7 * 10<sup>1</sup> + 8 * 10<sup>0</sup></p>
+<p>​                             =    23678</p>
+<h2 id="什么是十六进制"><a href="#什么是十六进制" class="headerlink" title="什么是十六进制"></a>什么是十六进制</h2><p>​        用<strong>0<del>9,A</del>F</strong>来表示数据,字母不区分大小写,进位规则是  <strong>“逢十六进一”</strong> ,借位规则是<strong>“借一当十六”</strong>.与十进制的对应关系是: 0<del>9对应0</del>9;A-F对应10<del>15;N进制的书可以用0</del>(N-1)的数表示,超过9的用字母A-F.十六进制是二进制的简写,方便书写二进制数据.</p>
+<p>​        Java代码中十六进制数用0X或0x做前缀(数字0,而不是字母O).</p>
+<p><strong>“基数”</strong>为16,16<sup>n</sup> (16的n次幂) 被称作”权”</p>
+<p>0x1000 = 1 * 16<sup>3</sup></p>
+<p>0x100 = 1 * 16<sup>2</sup></p>
+<p>0x10 = 1 * 16<sup>1</sup></p>
+<p>0x1 = 1 * 16<sup>0</sup></p>
+<p>示例:</p>
+<p>(5E)<sub>16</sub> = (?)<sub>10</sub></p>
+<p>​           = 5 * 16<sup>1</sup> + 14 * 16<sup>0</sup></p>
+<p>​           = 80 + 14</p>
+<p>​           = 94</p>
+<h1 id="进制转换"><a href="#进制转换" class="headerlink" title="进制转换"></a>进制转换</h1><h2 id="进制转换表"><a href="#进制转换表" class="headerlink" title="进制转换表"></a>进制转换表</h2><h3 id="八进制使用"><a href="#八进制使用" class="headerlink" title="八进制使用:"></a>八进制使用:</h3><table>
+<thead>
+<tr>
+<th align="center">二进制</th>
+<th align="center">八进制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">000</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">001</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">010</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">011</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">100</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">101</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="center">110</td>
+<td align="center">6</td>
+</tr>
+<tr>
+<td align="center">111</td>
+<td align="center">7</td>
+</tr>
+</tbody></table>
+<h3 id="二进制-十进制-十六进制使用"><a href="#二进制-十进制-十六进制使用" class="headerlink" title="二进制,十进制,十六进制使用:"></a>二进制,十进制,十六进制使用:</h3><table>
+<thead>
+<tr>
+<th align="center">十进制</th>
+<th align="center">二进制</th>
+<th align="center">十六进制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0000</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0001</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">0010</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">0011</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">0100</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">0101</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">0110</td>
+<td align="center">6</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">0111</td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">1000</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">1001</td>
+<td align="center">9</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="center">1010</td>
+<td align="center">a or A</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="center">1011</td>
+<td align="center">b or B</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td align="center">1100</td>
+<td align="center">c or C</td>
+</tr>
+<tr>
+<td align="center">13</td>
+<td align="center">1101</td>
+<td align="center">d or D</td>
+</tr>
+<tr>
+<td align="center">14</td>
+<td align="center">1110</td>
+<td align="center">e or E</td>
+</tr>
+<tr>
+<td align="center">15</td>
+<td align="center">1111</td>
+<td align="center">f or F</td>
+</tr>
+</tbody></table>
+<h2 id="二进制转其他进制"><a href="#二进制转其他进制" class="headerlink" title="二进制转其他进制"></a>二进制转其他进制</h2><h3 id="二进制转换八进制"><a href="#二进制转换八进制" class="headerlink" title="二进制转换八进制"></a>二进制转换八进制</h3><p>​        二进制转换八进制与二进制转换十六进制类似,区别在于转十六进制是四个二进制数,而转换八进制是3个二进制数,不足位补0,顺序不变.</p>
+<ul>
+<li>(1 101 011)<sub>2</sub> = (?)<sub>8</sub></li>
+<li>(001)<sub>2</sub> = (1)<sub>8</sub></li>
+<li>(101)<sub>2</sub> = (5)<sub>8</sub></li>
+<li>(011)<sub>2</sub> = (3)<sub>8</sub></li>
+<li>(001 101 011)<sub>2</sub> = (153)<sub>8</sub></li>
+</ul>
+<h3 id="二进制转换十进制"><a href="#二进制转换十进制" class="headerlink" title="二进制转换十进制"></a>二进制转换十进制</h3><p>​        二进制数的第0位权,值为2的0次方,第一位权,值为2的1次方,第二位权,值为2的2次方<sub>… …</sub></p>
+<p>所以,在第N(N从0开始)位上,如果是数X(X大于等于0,并且X小于等于1,即:X小于等于F) 表示的大小为X *  2的N次方.</p>
+<ul>
+<li>(10110)<sub>2</sub> = (?)<sub>10</sub></li>
+<li>第0位: 0 * 2<sup>0</sup></li>
+<li>第1位: 1 * 2<sup>1</sup> </li>
+<li>第2位: 1 * 2<sup>2</sup> </li>
+<li>第3位: 0 * 2<sup>3</sup></li>
+<li>第4位: 1 * 2<sup>4</sup> </li>
+<li>(10110)<sub>2</sub> = (1 * 2<sup>4</sup> + 0 * 2<sup>3</sup> + 1 * 2<sup>2</sup> + 1 * 2<sup>1</sup> + 0 * 2<sup>0</sup>)<sub>10</sub></li>
+<li>(10110)2 = (22)<sub>10</sub></li>
+</ul>
+<h3 id="二进制转换十六进制"><a href="#二进制转换十六进制" class="headerlink" title="二进制转换十六进制"></a>二进制转换十六进制</h3><p>​        四个二进制数表示一个十六进制数,不足4位在前面补0即可.</p>
+<ul>
+<li>(101 0110)<sub>2</sub> = (?)<sub>16</sub></li>
+<li>(101)<sub>2</sub> -&gt; (0101)<sub>2</sub> = (5)<sub>16</sub></li>
+<li>(0110)<sub>2</sub> = (6)<sub>16</sub></li>
+<li>(101 0110)<sub>2</sub> -&gt; (0101 0110)<sub>2</sub> = (56)<sub>16</sub></li>
+</ul>
+<h2 id="八进制转换其他进制"><a href="#八进制转换其他进制" class="headerlink" title="八进制转换其他进制"></a>八进制转换其他进制</h2><h3 id="八进制转换二进制"><a href="#八进制转换二进制" class="headerlink" title="八进制转换二进制"></a>八进制转换二进制</h3><p>​    将每一个八进制数改写成等值的二进制数,顺序不变.</p>
+<ul>
+<li>(167)<sub>8</sub> = (?)<sub>2</sub></li>
+<li>(1)<sub>8</sub> = (001)<sub>2</sub></li>
+<li>(6)<sub>8</sub> = (110)<sub>2</sub></li>
+<li>(7)<sub>8</sub> = (111)<sub>2</sub></li>
+<li>(167)<sub>8</sub> = (001110111)<sub>2</sub></li>
+</ul>
+<h3 id="八进制转换十进制"><a href="#八进制转换十进制" class="headerlink" title="八进制转换十进制"></a>八进制转换十进制</h3><p>​        八进制数的第0位权,值为8的0次方,第一位的权,值为8的1次方,第二位的权值为8的2次方<sub>… …</sub></p>
+<p>所以,在第N(N从0开始)位上,如果是数X(X大于等于0,并且X小于等于7) 表示的大小为X *  8的N次方.</p>
+<ul>
+<li>(17)<sub>8</sub> = (?)<sub>10</sub></li>
+<li>第0位 : 7 * 8<sup>0</sup></li>
+<li>第1位 : 1 * 8<sup>1</sup></li>
+<li>(17)<sub>8</sub> = 1 * 8<sup>1</sup> + 7 * 8<sup>0</sup><ul>
+<li>= 15</li>
+</ul>
+</li>
+</ul>
+<h3 id="八进制转换十六进制"><a href="#八进制转换十六进制" class="headerlink" title="八进制转换十六进制"></a>八进制转换十六进制</h3><p>​        将八进制数转换为二进制，然后再转换为十六进制即可。</p>
+<h2 id="十进制转换其他进制"><a href="#十进制转换其他进制" class="headerlink" title="十进制转换其他进制"></a>十进制转换其他进制</h2><h3 id="十进制转换二进制"><a href="#十进制转换二进制" class="headerlink" title="十进制转换二进制"></a>十进制转换二进制</h3><p>​        十进制转二进制,其实就是不断地除以2,保留余数,商为0时不再除2.让后将余数倒序排列,就是二进制数</p>
+<ul>
+<li>(95)<sub>10</sub> = (?)<sub>2</sub></li>
+<li>95 / 2  -&gt;  商:47  余:1</li>
+<li>47 / 2  -&gt;  商:23  余:1</li>
+<li>23 / 2  -&gt;  商:11  余:1</li>
+<li>11 / 2  -&gt;  商:5    余:1</li>
+<li>5 / 2    -&gt;  商:2    余:1</li>
+<li>2 / 2    -&gt;  商:1    余:0</li>
+<li>2 / 2    -&gt;  商:0    余:1</li>
+<li>(95)<sub>10</sub> = (101 1111)<sub>2</sub></li>
+</ul>
+<h3 id="十进制转换八进制"><a href="#十进制转换八进制" class="headerlink" title="十进制转换八进制"></a>十进制转换八进制</h3><p>​    十进制转换位八进制有两种方法:</p>
+<ul>
+<li><p>不断的除以8,保留余数,直到商为0,让后将余数倒序排列</p>
+<ul>
+<li>(115)<sub>10</sub> = (?)<sub>8</sub></li>
+<li>115 / 8 -&gt; 商:14 余:3</li>
+<li>14  /  8 -&gt; 商:1   余:6</li>
+<li>1   /   8 -&gt; 商:0   余:1</li>
+<li>(115)<sub>10</sub> = (163)<sub>8</sub></li>
+</ul>
+</li>
+<li><p>先将十进制转换为二进制,让后在转换为八进制</p>
+<ul>
+<li>(95)<sub>10</sub> = (?)<sub>8</sub></li>
+<li>(95)<sub>10</sub> = (1011111)<sub>2</sub></li>
+<li>(1011111)<sub>2</sub> -&gt; (001 011 111)<sub>2</sub> </li>
+<li>(137)<sub>8</sub></li>
+</ul>
+</li>
+</ul>
+<h3 id="十进制转换十六进制"><a href="#十进制转换十六进制" class="headerlink" title="十进制转换十六进制"></a>十进制转换十六进制</h3><p>​        十进制转换十六进制,与十进制转换2进制相似,不断地除以16,保留余数,商为0时不再除以16,让后将余数倒序排列.</p>
+<ul>
+<li>(187)<sub>10</sub> = (?)<sub>16</sub></li>
+<li>187 / 16 -&gt; 商:11 余:b</li>
+<li>11 / 16   -&gt; 商:0   余:b</li>
+<li>(187)<sub>10</sub> = (bb)<sub>16</sub> or (BB)<sub>16</sub></li>
+</ul>
+<h2 id="十六进制转换其他进制"><a href="#十六进制转换其他进制" class="headerlink" title="十六进制转换其他进制"></a>十六进制转换其他进制</h2><h3 id="十六进制转换二进制"><a href="#十六进制转换二进制" class="headerlink" title="十六进制转换二进制"></a>十六进制转换二进制</h3><p>​        十六进制的一个数等于二进制的四个数</p>
+<ul>
+<li><p>(41)<sub>16</sub> = (?)<sub>2</sub></p>
+</li>
+<li><p>(4)<sub>16</sub> = (0100)<sub>2</sub></p>
+</li>
+<li><p>(1)<sub>16</sub> = (0001)<sub>2</sub></p>
+</li>
+<li><p>(41)<sub>16</sub> = (0100 0001)<sub>2</sub></p>
+</li>
+</ul>
+<h3 id="十六进制转换八进制"><a href="#十六进制转换八进制" class="headerlink" title="十六进制转换八进制"></a>十六进制转换八进制</h3><p>​        先将十六进制转换为二进制,再将二进制转为八进制</p>
+<h3 id="十六进制转换十进制"><a href="#十六进制转换十进制" class="headerlink" title="十六进制转换十进制"></a>十六进制转换十进制</h3><p>​        十六进制数的第0位权,值为16的0次方,第一位的权,值为16的1次方,第二位的权值为16的2次方<sub>… …</sub></p>
+<p>所以,在第N(N从0开始)位上,如果是数X(X大于等于0,并且X小于等于15,即:X小于等于F) 表示的大小为X *  16的N次方.</p>
+<ul>
+<li><p>(41)<sub>16</sub> = (?)<sub>10</sub></p>
+</li>
+<li><p>第0位: 1 * 16<sup>0</sup> </p>
+</li>
+<li><p>第1位: 4 * 16<sup>1</sup> </p>
+</li>
+<li><p>(41)<sub>16</sub> = 1*16<sup>0</sup> + 4 * 16<sup>1</sup> </p>
+</li>
+<li><p>​            = 1 + 64</p>
+</li>
+<li><p>​            = (65)<sub>10</sub></p>
+</li>
+</ul>
+<h2 id="负数的进制转换"><a href="#负数的进制转换" class="headerlink" title="负数的进制转换"></a>负数的进制转换</h2><p>​        负数转换为二进制数需要三个步骤:</p>
+<ul>
+<li>首先将负数转换成对应的原码(也就是该负数的正数的二进制数)<ul>
+<li>例如:-3 正数:3  二进制:0011</li>
+</ul>
+</li>
+<li>让后将原码的每一位做取反操作(取反操作: 0变1   1变0)<ul>
+<li>取反后的结果:1100</li>
+</ul>
+</li>
+<li>让后将取反操作的结果加一得到补码</li>
+<li>取反后的值:1100  加一后:1101</li>
+<li>-3 转换成二进制就是: 1101<sub>2</sub></li>
+</ul>
+<h2 id="与运算（-amp-）、或运算（-）、异或运算（-）"><a href="#与运算（-amp-）、或运算（-）、异或运算（-）" class="headerlink" title="与运算（&amp;）、或运算（|）、异或运算（^）"></a>与运算（&amp;）、或运算（|）、异或运算（^）</h2><h3 id="与运算-amp"><a href="#与运算-amp" class="headerlink" title="与运算(&amp;)"></a>与运算(&amp;)</h3><p>​        规则:</p>
+<p>​        0&amp;0=0;    0&amp;1=0;    1&amp;0=0;    1&amp;1=1;</p>
+<p>​        运算的两个对象同时为1的时候结果才为一,否则结果为0;</p>
+<p>例:</p>
+<ul>
+<li>5&amp;11</li>
+<li>5转换为二进制:0101</li>
+<li>11转换为二进制:1011</li>
+<li>结果:0001<sub>2</sub> 转换为10进制:1<sub>10</sub></li>
+</ul>
+<h3 id="或运算（-）"><a href="#或运算（-）" class="headerlink" title="或运算（|）"></a>或运算（|）</h3><p>​    规则:</p>
+<p>​    0|0=0;    0|1=1;    1|0=1;    1|1=1;</p>
+<p>​    运算的两个对象其中一个为1,结果为1否则为0;</p>
+<p>例:</p>
+<ul>
+<li>5|11</li>
+<li>5转换为二进制:0101</li>
+<li>11转换为二进制:1011</li>
+<li>结果:1111<sub>2</sub> 转换为十进制:15<sub>10</sub></li>
+</ul>
+<h3 id="异或运算（-）"><a href="#异或运算（-）" class="headerlink" title="异或运算（^）"></a>异或运算（^）</h3><p>​        规则:</p>
+<p>​        0^0=0;    0^1=1;    1^0=1;    1^1=0;</p>
+<p>​        参与运算的两个对象,如果两个值为”异”(值不同),结果为1,否则为0;</p>
+<p>​    例:</p>
+<ul>
+<li>5^11</li>
+<li>5转换为二进制:0101</li>
+<li>11转换为二进制:1011</li>
+<li>结果: 1110 转换为十进制: 14<sub>10</sub></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>龙龙
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://longtao1.github.io/2020/06/07/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/" title="进制运算">http://longtao1.github.io/2020/06/07/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" rel="tag"># 二进制</a>
+              <a href="/tags/%E5%85%AB%E8%BF%9B%E5%88%B6/" rel="tag"># 八进制</a>
+              <a href="/tags/%E5%8D%81%E8%BF%9B%E5%88%B6/" rel="tag"># 十进制</a>
+              <a href="/tags/%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6/" rel="tag"># 十六进制</a>
+          </div>
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常用的数制以及概念"><span class="nav-number">1.</span> <span class="nav-text">常用的数制以及概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是二进制"><span class="nav-number">1.1.</span> <span class="nav-text">什么是二进制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是八进制"><span class="nav-number">1.2.</span> <span class="nav-text">什么是八进制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是十进制"><span class="nav-number">1.3.</span> <span class="nav-text">什么是十进制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是十六进制"><span class="nav-number">1.4.</span> <span class="nav-text">什么是十六进制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进制转换"><span class="nav-number">2.</span> <span class="nav-text">进制转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进制转换表"><span class="nav-number">2.1.</span> <span class="nav-text">进制转换表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#八进制使用"><span class="nav-number">2.1.1.</span> <span class="nav-text">八进制使用:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制-十进制-十六进制使用"><span class="nav-number">2.1.2.</span> <span class="nav-text">二进制,十进制,十六进制使用:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二进制转其他进制"><span class="nav-number">2.2.</span> <span class="nav-text">二进制转其他进制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制转换八进制"><span class="nav-number">2.2.1.</span> <span class="nav-text">二进制转换八进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制转换十进制"><span class="nav-number">2.2.2.</span> <span class="nav-text">二进制转换十进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制转换十六进制"><span class="nav-number">2.2.3.</span> <span class="nav-text">二进制转换十六进制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八进制转换其他进制"><span class="nav-number">2.3.</span> <span class="nav-text">八进制转换其他进制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#八进制转换二进制"><span class="nav-number">2.3.1.</span> <span class="nav-text">八进制转换二进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#八进制转换十进制"><span class="nav-number">2.3.2.</span> <span class="nav-text">八进制转换十进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#八进制转换十六进制"><span class="nav-number">2.3.3.</span> <span class="nav-text">八进制转换十六进制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十进制转换其他进制"><span class="nav-number">2.4.</span> <span class="nav-text">十进制转换其他进制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#十进制转换二进制"><span class="nav-number">2.4.1.</span> <span class="nav-text">十进制转换二进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十进制转换八进制"><span class="nav-number">2.4.2.</span> <span class="nav-text">十进制转换八进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十进制转换十六进制"><span class="nav-number">2.4.3.</span> <span class="nav-text">十进制转换十六进制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十六进制转换其他进制"><span class="nav-number">2.5.</span> <span class="nav-text">十六进制转换其他进制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#十六进制转换二进制"><span class="nav-number">2.5.1.</span> <span class="nav-text">十六进制转换二进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十六进制转换八进制"><span class="nav-number">2.5.2.</span> <span class="nav-text">十六进制转换八进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十六进制转换十进制"><span class="nav-number">2.5.3.</span> <span class="nav-text">十六进制转换十进制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#负数的进制转换"><span class="nav-number">2.6.</span> <span class="nav-text">负数的进制转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与运算（-amp-）、或运算（-）、异或运算（-）"><span class="nav-number">2.7.</span> <span class="nav-text">与运算（&amp;）、或运算（|）、异或运算（^）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与运算-amp"><span class="nav-number">2.7.1.</span> <span class="nav-text">与运算(&amp;)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#或运算（-）"><span class="nav-number">2.7.2.</span> <span class="nav-text">或运算（|）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异或运算（-）"><span class="nav-number">2.7.3.</span> <span class="nav-text">异或运算（^）</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="龙龙"
+      src="/images/suolong.jpg">
+  <p class="site-author-name" itemprop="name">龙龙</p>
+  <div class="site-description" itemprop="description">个人java博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/longtao1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;longtao1" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:javalongtao@gmail.com" title="E-Mail → mailto:javalongtao@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">龙龙</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">3k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5 分钟</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'b0ca9d93f6c9aa70d573',
+      clientSecret: 'd79b33e549e672bf487b59a6e800c56950b23a98',
+      repo: 'LongTao1.github.io',
+      owner: 'LongTao1',
+      admin: ['LongTao1'],
+      id: '8eded34e130a16c9bddacd7102342e6b',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

@@ -12,5 +12,5 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: http://longlongvps.top/sitemap.xml
-Sitemap: http://longlongvps.top/baidusitemap.xml
+Sitemap: https://longtao1.github.io/sitemap.xml
+Sitemap: https://longtao1.github.io/baidusitemap.xml
